@@ -1,0 +1,44 @@
+module AD_complex
+# Define el tipo (estructura) `Dual` (**con exactamente ese nombre**) que #contenga dos campos, el valor de la función y el valor de su derivada. #Haz que *ambos* campos tengan el mismo tipo de valor, y que ambos #*tengan* que ser un subtipo de `Real`.
+
+export Dual
+export Dual_var
+
+type Dual{T<:Number}  #Para que también me trabajara con números complejos.
+    x :: T
+    y :: T
+end 
+
+Dual(a,b) = Dual(promote(a,b)...)
+
+#Define métodos para que el dual de un número (sólo *un* número) sea lo #que uno espera, y una función `dual_var(x0)` que retorne un dual que #represente a la variable *independiente* en `x0`.
+
+Dual(x) = Dual(x,0)
+
+Dual_var(x0)=Dual(x0,1) 
+
+
+# Define métodos que sumen, resten, multipliquen y dividan duales, y #números con duales. Incluye los casos (para duales) en que los #operadores `+` y `-` actúan sólo sobre un `Dual`.
+
+
+
+import Base.+
++(a::Dual, b::Dual) = Dual( a.x + b.x, a.y + b.y )
++(a::Dual, b::Real) = Dual( a.x + b, a.y)
++(b::Real, a::Dual) = Dual( a.x + b, a.y)
++(a::Dual, b::Complex) = Dual( a.x + b, a.y)
++(b::Complex, a::Dual) = Dual( a.x + b, a.y)
++(a::Dual) = Dual(+a.x,+a.y)
+
+
+import Base.-
+-(a::Dual, b::Dual) = Dual( a.x - b.x, a.y - b.y ) 
+-(a::Dual, b::Real) = Dual( a.x - b, a.y)
+-(b::Real, a::Dual) = Dual( a.x - b, a.y)
+-(a::Dual, b::Complex) = Dual( a.x - b, a.y)
+(b::Complex, a::Dual) = Dual( a.x - b, a.y)
+-(a::Dual) = Dual(-a.x,-a.y)
+
+end
+
+
