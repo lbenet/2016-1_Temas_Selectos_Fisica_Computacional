@@ -71,3 +71,4 @@ en combinación con [IJulia](https://github.com/JuliaLang/IJulia.jl) en clase.
 - Movimiento de una vela solar
 
 Otros proyectos son bienvenidos, pero deben ser aceptados primero.
+# Proyecto_Lorenz
